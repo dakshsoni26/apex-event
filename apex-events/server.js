@@ -26,6 +26,13 @@ const supabaseAdmin =
 
 app.use(cors({ origin: allowedOrigins, credentials: true }))
 
+app.use((req, res, next) => {
+  if (!req.url.startsWith('/api/')) {
+    req.url = '/api' + req.url;
+  }
+  next();
+})
+
 // ── Stripe webhook ────────────────────────────────────────────────────
 // IMPORTANT: must be registered before express.json() so Stripe gets the raw body
 app.post('/api/stripe/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
