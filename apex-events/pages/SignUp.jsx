@@ -23,7 +23,15 @@ export default function SignUp() {
     })
 
     if (error) {
-      toast.error(error.message)
+      if (error.message.toLowerCase().includes('already registered')) {
+        toast.error('Email already registered. Redirecting to Sign In...')
+        navigate('/signin')
+      } else {
+        toast.error(error.message)
+      }
+    } else if (data.user && data.user.identities && data.user.identities.length === 0) {
+      toast.error('Email already registered. Redirecting to Sign In...')
+      navigate('/signin')
     } else if (data.user) {
       await supabase.from('profiles').upsert({ id: data.user.id, full_name: fullName, role })
       toast.success('Account created!')

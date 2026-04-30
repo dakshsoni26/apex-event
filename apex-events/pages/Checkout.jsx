@@ -90,9 +90,7 @@ export default function Checkout({ session, profile }) {
     try {
       const ticketCode = generateTicketCode()
       await saveBooking({ ticketCode, amountPaid: 0 })
-      toast.success('RSVP confirmed')
-      navigate('/my-tickets')
-      sendBookingConfirmation({
+      await sendBookingConfirmation({
         to: session.user.email,
         toName: profile?.full_name,
         eventTitle: event.title,
@@ -100,7 +98,9 @@ export default function Checkout({ session, profile }) {
         ticketCount: quantity,
         totalPaid: 0,
         isFree: true,
-      }).catch((err) => console.warn('Email failed:', err.message))
+      })
+      toast.success('RSVP confirmed')
+      navigate('/my-tickets')
     } catch {
       // toast already shown
     } finally {
@@ -160,9 +160,7 @@ export default function Checkout({ session, profile }) {
         const ticketCode = data.metadata?.ticket_code || generateTicketCode()
         const amountPaid = Number(data.amount_total || total * 100) / 100
         await saveBooking({ ticketCode, amountPaid })
-        toast.success('Payment confirmed by Stripe')
-        navigate('/my-tickets')
-        sendBookingConfirmation({
+        await sendBookingConfirmation({
           to: session.user.email,
           toName: profile?.full_name,
           eventTitle: event.title,
@@ -170,7 +168,9 @@ export default function Checkout({ session, profile }) {
           ticketCount: quantity,
           totalPaid: amountPaid,
           isFree: false,
-        }).catch((err) => console.warn('Email failed:', err.message))
+        })
+        toast.success('Payment confirmed by Stripe')
+        navigate('/my-tickets')
       } catch (error) {
         toast.error(isNetworkError(error) ? 'Could not reach the Stripe server. Start npm run dev:full.' : error.message)
       } finally {
