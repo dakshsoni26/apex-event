@@ -51,6 +51,9 @@ export default function SignIn() {
               </button>
             </div>
           </div>
+          <p className="auth-link" style={{ textAlign: 'right', marginTop: '-0.5rem', marginBottom: '1rem', fontSize: '0.85rem' }}>
+            <Link to="/forgot-password" style={{ color: 'var(--text2)', textDecoration: 'none' }}>Forgot password?</Link>
+          </p>
           <button className="btn-primary" type="submit" disabled={loading}>
             {loading ? 'Signing in...' : 'Login'}
           </button>

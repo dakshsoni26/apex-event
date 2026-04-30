@@ -22,6 +22,8 @@ import PublicRSVP from './pages/PublicRSVP'
 import EditEvent from './pages/EditEvent'
 import ScanTicket from './pages/ScanTicket'
 import Analytics from './pages/Analytics'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 import './index.css'
 
 function ProtectedRoute({ session, children }) {
@@ -74,6 +76,8 @@ export default function App() {
         <Route path="/" element={session ? <Navigate to="/home" /> : <Landing />} />
         <Route path="/signin" element={session ? <Navigate to="/home" /> : <SignIn />} />
         <Route path="/signup" element={session ? <Navigate to="/home" /> : <SignUp />} />
+        <Route path="/forgot-password" element={session ? <Navigate to="/home" /> : <ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/rsvp/:id" element={<PublicRSVP />} />
         <Route path="/events" element={<Navigate to="/home" replace />} />
         <Route path="/home" element={
