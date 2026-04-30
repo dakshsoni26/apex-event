@@ -306,7 +306,11 @@ app.post('/api/send-email', async (req, res) => {
                   </tr>
                 </table>
 
-                <p style="color:#6b6860;font-size:0.875rem;margin:0;">Present your ticket code at the venue. You can also view your QR code in the app under <strong>My Tickets</strong>.</p>
+                <div style="text-align:center;margin-bottom:32px;">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${ticketCode}" alt="QR Code" style="border:8px solid #fff;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.05);" width="160" height="160" />
+                </div>
+
+                <p style="color:#6b6860;font-size:0.875rem;margin:0;">Present your ticket code or scan the QR code at the venue door. You can also download passes in-app.</p>
               </td>
             </tr>
             <tr>
